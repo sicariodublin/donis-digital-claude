@@ -617,7 +617,7 @@ h2 {
   object-fit: contain;
   margin: 0 auto 3rem;
   display: block;
-  filter: hue-rotate(150deg) saturate(1.5) brightness(0.85);
+  filter: drop-shadow(0 22px 55px rgba(0,0,0,0.55));
   transform: scale(1.50);
   transform-origin: center top;
   margin-top: -5rem;
@@ -831,7 +831,7 @@ footer {
   height: 46px;
   width: auto;
   display: block;
-  filter: hue-rotate(150deg) saturate(1.5) brightness(0.85);
+  filter: drop-shadow(0 14px 35px rgba(0,0,0,0.55));
   transform: scale(3.2);
   transform-origin: left center;
 }
