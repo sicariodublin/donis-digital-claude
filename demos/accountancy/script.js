@@ -102,10 +102,10 @@ updateOfficeStatus();
 const contactBtn = document.getElementById('contactBtn');
 if (contactBtn) {
   contactBtn.addEventListener('click', () => {
-    const name    = document.querySelector('input[placeholder="Your name"]')?.value.trim();
-    const email   = document.querySelector('input[type="email"]')?.value.trim();
-    const company = document.querySelector('input[placeholder="Your company"]')?.value.trim();
-    const message = document.querySelector('textarea')?.value.trim();
+    const name    = document.getElementById('ca-name')?.value.trim();
+    const email   = document.getElementById('ca-email')?.value.trim();
+    const company = document.getElementById('ca-company')?.value.trim();
+    const message = document.getElementById('ca-message')?.value.trim();
 
     if (!name || !email || !message) {
       contactBtn.textContent = 'Please fill in required fields';

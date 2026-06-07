@@ -55,9 +55,9 @@ donateOptions.forEach(opt => {
 const contactBtn = document.getElementById('contactBtn');
 if (contactBtn) {
   contactBtn.addEventListener('click', () => {
-    const name = document.querySelector('input[placeholder="Aoife Murphy"]')?.value.trim();
-    const email = document.querySelector('input[type="email"]')?.value.trim();
-    const message = document.querySelector('textarea')?.value.trim();
+    const name = document.getElementById('ch-name')?.value.trim();
+    const email = document.getElementById('ch-email')?.value.trim();
+    const message = document.getElementById('ch-message')?.value.trim();
 
     if (!name || !email || !message) {
       contactBtn.textContent = 'Please fill in all required fields';

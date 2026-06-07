@@ -3,11 +3,30 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>FS Digital — Web Systems for Real Businesses</title>
+<title>FS Digital — Web Systems for Real Businesses | Dublin</title>
+<meta name="description" content="FS Digital builds fixed-price websites and web systems for Irish small businesses — restaurants, churches, accountancy firms, and more. Mobile-first, fast, and live in 14 days."/>
+<meta name="author" content="FS Digital"/>
+<meta name="theme-color" content="#080b10"/>
+<link rel="canonical" href="https://fsteyerdigital.com/"/>
+
+<!-- Open Graph / social -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://fsteyerdigital.com/"/>
+<meta property="og:title" content="FS Digital — Web Systems for Real Businesses"/>
+<meta property="og:description" content="Fixed-price websites for restaurants, churches, and professional services. Built fast, mobile-first, ready to convert."/>
+<meta property="og:image" content="https://fsteyerdigital.com/Print_Transparent.svg"/>
+<meta property="og:locale" content="en_IE"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="FS Digital — Web Systems for Real Businesses"/>
+<meta name="twitter:description" content="Fixed-price websites and web systems for Irish small businesses. Live in 14 days."/>
+<meta name="twitter:image" content="https://fsteyerdigital.com/Print_Transparent.svg"/>
+
+<link rel="icon" type="image/svg+xml" href="Print_Transparent.svg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="donis-digital.css?v=20260607"/>
-<script src="donis-digital.js?v=20260607" defer></script>
+<link rel="stylesheet" href="donis-digital.css?v=20260607c"/>
+<script src="donis-digital.js?v=20260607c" defer></script>
 </head>
 <body>
 
@@ -370,7 +389,15 @@
           <p class="contact-tip-text">💡 <strong>Free consultation:</strong> First call is always free. We'll scope your project and give you a fixed quote — no hidden costs.</p>
         </div>
       </div>
-      <form class="contact-form reveal" id="contact-form">
+      <form
+        class="contact-form reveal"
+        id="contact-form"
+        action="https://formspree.io/f/xrevpnzj"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <input type="hidden" name="_next" value="https://fsteyerdigital.com"/>
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true"/>
         <div class="form-row">
           <div class="form-group">
             <label for="contact-name">Your name</label>
@@ -383,7 +410,7 @@
         </div>
         <div class="form-group">
           <label for="contact-business">Business type</label>
-          <select id="contact-business" name="businessType" title="Select your industry" required>
+          <select id="contact-business" name="businessType" required>
             <option value="">Select your industry...</option>
             <option>Restaurant / Café</option>
             <option>Church / Community</option>
@@ -399,6 +426,7 @@
           <textarea id="contact-message" name="message" rows="5" placeholder="What do you need? What's your timeline? Any details you can share helps us come back to you faster." required></textarea>
         </div>
         <button class="form-submit" type="submit">Send message →</button>
+        <p class="form-status" id="contact-status" role="status" aria-live="polite"></p>
       </form>
     </div>
   </div>
@@ -414,7 +442,23 @@
     <li><a href="#services">Services</a></li>
     <li><a href="#demos">Work</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="privacy.html">Privacy</a></li>
+    <li><a href="terms.html">Terms</a></li>
   </ul>
 </footer>
+
+<!-- COOKIE CONSENT BANNER -->
+<div class="cookie-banner" id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie notice" hidden>
+  <div class="cookie-banner-inner">
+    <p class="cookie-banner-text">
+      We use a small amount of local storage to remember your cookie choice. We do not run third-party tracking or advertising cookies. See our <a href="privacy.html">Privacy Policy</a> for details.
+    </p>
+    <div class="cookie-banner-actions">
+      <button type="button" class="cookie-btn cookie-btn-decline" data-cookie-action="decline">Decline</button>
+      <button type="button" class="cookie-btn cookie-btn-accept" data-cookie-action="accept">Accept</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

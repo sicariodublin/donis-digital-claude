@@ -1,3 +1,4 @@
+// ── SMOOTH SCROLL TRIGGERS ──
 const scrollToId = (id) => {
   const target = document.getElementById(id);
   if (!target) return;
@@ -12,6 +13,7 @@ document.querySelectorAll('[data-scroll-to]').forEach((el) => {
   });
 });
 
+// ── REVEAL ON SCROLL ──
 const reveals = document.querySelectorAll('.reveal');
 const revealObserver = new IntersectionObserver(
   (entries) => {
@@ -26,6 +28,7 @@ const revealObserver = new IntersectionObserver(
 );
 reveals.forEach((el) => revealObserver.observe(el));
 
+// ── ACTIVE NAV LINK ON SCROLL ──
 const sections = Array.from(document.querySelectorAll('section[id]'));
 const navLinks = Array.from(document.querySelectorAll('.nav-links a'));
 
@@ -56,63 +59,84 @@ window.addEventListener('scroll', () => {
 
 updateActiveNav();
 
+// ── CONTACT FORM (Formspree) ──
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
   const submitButton = contactForm.querySelector('.form-submit');
-  const originalText = submitButton ? submitButton.textContent : '';
-  let resetTimer = null;
+  const statusEl = document.getElementById('contact-status');
+  const originalLabel = submitButton ? submitButton.textContent : 'Send message →';
 
-  contactForm.addEventListener('submit', (e) => {
+  const setStatus = (msg, kind) => {
+    if (!statusEl) return;
+    statusEl.textContent = msg;
+    statusEl.dataset.kind = kind || '';
+  };
+
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-
     if (!submitButton) return;
 
-    const name = contactForm.querySelector('#contact-name')?.value?.trim() || '';
-    const email = contactForm.querySelector('#contact-email')?.value?.trim() || '';
-    const businessType = contactForm.querySelector('#contact-business')?.value?.trim() || '';
-    const message = contactForm.querySelector('#contact-message')?.value?.trim() || '';
+    // Honeypot — bail silently if the hidden field was filled
+    const gotcha = contactForm.querySelector('[name="_gotcha"]');
+    if (gotcha && gotcha.value) return;
 
-    const subjectParts = [];
-    if (businessType) subjectParts.push(businessType);
-    if (name) subjectParts.push(name);
-    const subject = subjectParts.length ? subjectParts.join(' — ') : 'Website enquiry';
+    submitButton.disabled = true;
+    submitButton.textContent = 'Sending…';
+    setStatus('', '');
 
-    const bodyLines = [
-      'New enquiry from fsteyerdigital.com',
-      '',
-      `Name: ${name || '-'}`,
-      `Email: ${email || '-'}`,
-      `Business type: ${businessType || '-'}`,
-      '',
-      'Message:',
-      message || '-',
-    ];
-    const body = bodyLines.join('\n');
+    try {
+      const response = await fetch(contactForm.action, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(contactForm),
+      });
 
-    const mailto = `mailto:hello@fsteyerdigital.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      if (!response.ok) throw new Error(`Server responded ${response.status}`);
 
-    if (resetTimer) window.clearTimeout(resetTimer);
-    submitButton.textContent = 'Opening email…';
-
-    const a = document.createElement('a');
-    a.href = mailto;
-    a.rel = 'noreferrer';
-    a.style.display = 'none';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-
-    window.location.href = mailto;
-
-    resetTimer = window.setTimeout(() => {
-      submitButton.textContent = originalText || 'Send message →';
-      submitButton.style.background = '';
+      submitButton.textContent = '✓ Message sent';
+      setStatus("✓ Message sent — we'll be in touch within 24 hours.", 'success');
       contactForm.reset();
-    }, 1200);
+      submitButton.disabled = false;
+    } catch (err) {
+      submitButton.textContent = originalLabel;
+      submitButton.disabled = false;
+      setStatus(
+        'Something went wrong. Please try again or email us directly at hello@fsteyerdigital.com.',
+        'error'
+      );
+    }
+  });
+}
 
-    window.setTimeout(() => {
-      if (submitButton.textContent !== 'Opening email…') return;
-      submitButton.textContent = 'If nothing opened: email hello@fsteyerdigital.com';
-    }, 1600);
+// ── COOKIE CONSENT BANNER ──
+const cookieBanner = document.getElementById('cookie-banner');
+if (cookieBanner) {
+  const STORAGE_KEY = 'fsd-cookie-consent';
+
+  let stored = null;
+  try {
+    stored = window.localStorage.getItem(STORAGE_KEY);
+  } catch (_) {
+    // localStorage not available — surface banner anyway, choice just won't persist
+  }
+
+  if (!stored) {
+    cookieBanner.hidden = false;
+    requestAnimationFrame(() => cookieBanner.classList.add('visible'));
+  }
+
+  cookieBanner.querySelectorAll('[data-cookie-action]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const choice = btn.getAttribute('data-cookie-action');
+      try {
+        window.localStorage.setItem(STORAGE_KEY, choice);
+      } catch (_) {
+        // ignore — banner just won't suppress on next visit
+      }
+      cookieBanner.classList.remove('visible');
+      setTimeout(() => {
+        cookieBanner.hidden = true;
+      }, 250);
+    });
   });
 }

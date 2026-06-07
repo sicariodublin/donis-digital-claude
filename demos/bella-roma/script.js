@@ -1,11 +1,7 @@
 // ── NAV SCROLL EFFECT ──
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 60) {
-    navbar.classList.add('scrolled');
-  } else {
-    navbar.classList.remove('scrolled');
-  }
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
 });
 
 // ── MOBILE MENU ──

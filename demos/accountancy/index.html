@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Clarke & Associates — Chartered Accountants Dublin</title>
+  <title>Clarke &amp; Associates — Chartered Accountants Dublin</title>
+  <meta name="description" content="Clarke &amp; Associates — Chartered Accountants on Lower Baggot Street, Dublin. Demo firm site by FS Digital covering services, team, and a free consultation form."/>
+  <meta name="robots" content="noindex,follow"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
 </head>
@@ -482,27 +485,27 @@
             <div class="contact-form">
               <div class="form-row">
                 <div class="form-group">
-                  <label>Full name</label>
-                  <input type="text" placeholder="Your name"/>
+                  <label for="ca-name">Full name</label>
+                  <input id="ca-name" type="text" placeholder="Your name" autocomplete="name"/>
                 </div>
                 <div class="form-group">
-                  <label>Company name</label>
-                  <input type="text" placeholder="Your company"/>
+                  <label for="ca-company">Company name</label>
+                  <input id="ca-company" type="text" placeholder="Your company" autocomplete="organization"/>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group">
-                  <label>Email</label>
-                  <input type="email" placeholder="you@company.ie"/>
+                  <label for="ca-email">Email</label>
+                  <input id="ca-email" type="email" placeholder="you@company.ie" autocomplete="email"/>
                 </div>
                 <div class="form-group">
-                  <label>Phone</label>
-                  <input type="tel" placeholder="+353 ..."/>
+                  <label for="ca-phone">Phone</label>
+                  <input id="ca-phone" type="tel" placeholder="+353 ..." autocomplete="tel"/>
                 </div>
               </div>
               <div class="form-group">
-                <label>Service of interest</label>
-                <select title="Select a service of interest"></select>
+                <label for="ca-service">Service of interest</label>
+                <select id="ca-service">
                   <option value="">Select a service...</option>
                   <option>Tax Planning &amp; Returns</option>
                   <option>Payroll Management</option>
@@ -511,11 +514,11 @@
                   <option>Company Secretarial</option>
                   <option>Audit &amp; Assurance</option>
                   <option>Not sure — need advice</option>
-
+                </select>
               </div>
               <div class="form-group">
-                <label>Tell us about your business</label>
-                <textarea rows="4" placeholder="A brief description of your business and what you need help with..."></textarea>
+                <label for="ca-message">Tell us about your business</label>
+                <textarea id="ca-message" rows="4" placeholder="A brief description of your business and what you need help with..."></textarea>
               </div>
               <button class="btn-submit" id="contactBtn">Request Consultation</button>
               <p class="form-note">We respond within one business day. First consultation is free — no obligation.</p>
