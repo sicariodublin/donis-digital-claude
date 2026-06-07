@@ -67,14 +67,52 @@ if (contactForm) {
 
     if (!submitButton) return;
 
+    const name = contactForm.querySelector('#contact-name')?.value?.trim() || '';
+    const email = contactForm.querySelector('#contact-email')?.value?.trim() || '';
+    const businessType = contactForm.querySelector('#contact-business')?.value?.trim() || '';
+    const message = contactForm.querySelector('#contact-message')?.value?.trim() || '';
+
+    const subjectParts = [];
+    if (businessType) subjectParts.push(businessType);
+    if (name) subjectParts.push(name);
+    const subject = subjectParts.length ? subjectParts.join(' — ') : 'Website enquiry';
+
+    const bodyLines = [
+      'New enquiry from fsteyerdigital.com',
+      '',
+      `Name: ${name || '-'}`,
+      `Email: ${email || '-'}`,
+      `Business type: ${businessType || '-'}`,
+      '',
+      'Message:',
+      message || '-',
+    ];
+    const body = bodyLines.join('\n');
+
+    const mailto = `mailto:hello@fsteyerdigital.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
     if (resetTimer) window.clearTimeout(resetTimer);
-    submitButton.textContent = 'Message sent! ✓';
-    submitButton.style.background = '#28c840';
+    submitButton.textContent = 'Opening email…';
+
+    const a = document.createElement('a');
+    a.href = mailto;
+    a.rel = 'noreferrer';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    window.location.href = mailto;
 
     resetTimer = window.setTimeout(() => {
       submitButton.textContent = originalText || 'Send message →';
       submitButton.style.background = '';
       contactForm.reset();
-    }, 3000);
+    }, 1200);
+
+    window.setTimeout(() => {
+      if (submitButton.textContent !== 'Opening email…') return;
+      submitButton.textContent = 'If nothing opened: email hello@fsteyerdigital.com';
+    }, 1600);
   });
 }
