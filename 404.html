@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>404 — Page not found · FS Digital</title>
+<meta name="description" content="The page you're looking for doesn't exist on fsteyerdigital.com. Head back to the FS Digital homepage."/>
+<meta name="robots" content="noindex,follow"/>
+<link rel="icon" type="image/svg+xml" href="Print_Transparent.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #080b10;
+    --bg2: #0d1118;
+    --cyan: #00e5ff;
+    --purple-light: #a855f7;
+    --pink: #f472b6;
+    --text: #e8edf5;
+    --text-muted: #7a8a9e;
+    --text-dim: #3d4f63;
+    --border: rgba(255,255,255,0.06);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Noise + grid background — same as main site */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  header.nav-404 {
+    position: relative;
+    z-index: 2;
+    padding: 1.2rem 5%;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+  }
+  header.nav-404 a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: var(--text);
+  }
+  header.nav-404 img {
+    height: 80px;
+    width: auto;
+    display: block;
+  }
+  header.nav-404 .brand-text {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.35rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  header.nav-404 .brand-text span { color: var(--cyan); }
+
+  main {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 5% 5rem;
+  }
+
+  .panel {
+    max-width: 640px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--cyan);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+
+  .code {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(5.5rem, 18vw, 10rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    background: linear-gradient(90deg, var(--cyan), var(--purple-light), var(--pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.01em;
+  }
+
+  .message {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 480px;
+    margin: 0 auto 2.2rem;
+  }
+
+  .cta {
+    display: inline-block;
+    background: var(--cyan);
+    color: var(--bg);
+    border: none;
+    padding: 0.9rem 1.8rem;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 0 30px rgba(0,229,255,0.3);
+  }
+  .cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 50px rgba(0,229,255,0.45);
+  }
+  .cta:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 4px;
+  }
+
+  footer.foot-404 {
+    position: relative;
+    z-index: 2;
+    padding: 1.5rem 5%;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+  }
+  footer.foot-404 a { color: var(--text-muted); text-decoration: none; }
+  footer.foot-404 a:hover { color: var(--cyan); }
+
+  @media (max-width: 600px) {
+    header.nav-404 img { height: 60px; }
+    main { padding: 2rem 5% 4rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav-404">
+  <a href="/donis-digital.html" aria-label="FS Digital — back to home">
+    <img src="Print_Transparent.svg" alt="FS Digital"/>
+  </a>
+</header>
+
+<main>
+  <div class="panel">
+    <p class="eyebrow">// error 404</p>
+    <div class="code" aria-hidden="true">404</div>
+    <h1>This page doesn't exist — but your next website could.</h1>
+    <p class="message">The link you followed may be broken, or the page may have moved. Let's get you back on track.</p>
+    <a class="cta" href="/donis-digital.html">Back to home →</a>
+  </div>
+</main>
+
+<footer class="foot-404">
+  <p>© 2025 FS Digital · <a href="/donis-digital.html">Home</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></p>
+</footer>
+
+</body>
+</html>

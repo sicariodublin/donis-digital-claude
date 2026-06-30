@@ -721,11 +721,13 @@ footer { background: var(--dark); color: var(--cream); }
   font-size: 0.78rem;
   color: rgba(250,245,236,0.3);
 }
-.footer-credit a {
+.footer-credit a,
+.footer-disclaimer a {
   color: var(--gold-dim);
   transition: color 0.2s;
 }
-.footer-credit a:hover { color: var(--gold-light); }
+.footer-credit a:hover,
+.footer-disclaimer a:hover { color: var(--gold-light); }
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {

@@ -996,8 +996,10 @@ footer { background: var(--dark); color: white; }
   gap: 0.5rem;
 }
 .footer-bottom p { font-size: 0.75rem; color: rgba(255,255,255,0.2); }
-.footer-credit a { color: rgba(74,222,128,0.5); transition: color 0.2s; }
-.footer-credit a:hover { color: var(--green-light); }
+.footer-credit a,
+.footer-disclaimer a { color: rgba(74,222,128,0.5); transition: color 0.2s; }
+.footer-credit a:hover,
+.footer-disclaimer a:hover { color: var(--green-light); }
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {

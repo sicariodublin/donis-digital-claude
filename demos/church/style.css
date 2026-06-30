@@ -925,8 +925,10 @@ footer { background: var(--navy); color: var(--cream); }
   gap: 0.5rem;
 }
 .footer-bottom p { font-size: 0.76rem; color: rgba(250,248,242,0.25); }
-.footer-credit a { color: var(--gold-dim); transition: color 0.2s; }
-.footer-credit a:hover { color: var(--gold-light); }
+.footer-credit a,
+.footer-disclaimer a { color: var(--gold-dim); transition: color 0.2s; }
+.footer-credit a:hover,
+.footer-disclaimer a:hover { color: var(--gold-light); }
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {
