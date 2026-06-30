@@ -2,9 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://fsteyerdigital.com/</loc>
-    <lastmod>2026-06-07</lastmod>
+    <lastmod>2026-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="en" href="https://fsteyerdigital.com/donis-digital.html"/>
+    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="pt-BR" href="https://fsteyerdigital.com/pt/"/>
+    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="x-default" href="https://fsteyerdigital.com/donis-digital.html"/>
+  </url>
+  <url>
+    <loc>https://fsteyerdigital.com/pt/</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="en" href="https://fsteyerdigital.com/donis-digital.html"/>
+    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="pt-BR" href="https://fsteyerdigital.com/pt/"/>
+    <xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="x-default" href="https://fsteyerdigital.com/donis-digital.html"/>
   </url>
   <url>
     <loc>https://fsteyerdigital.com/privacy.html</loc>
