@@ -1,3 +1,33 @@
+// ── LANGUAGE PREFERENCE ──
+const LANG_KEY = 'fs_lang';
+(() => {
+  const path = window.location.pathname;
+  const isPtPage = path === '/pt/' || path.startsWith('/pt/');
+  try {
+    if (isPtPage) {
+      window.localStorage.setItem(LANG_KEY, 'pt');
+    } else {
+      const savedLang = window.localStorage.getItem(LANG_KEY);
+      if (savedLang === 'pt') {
+        window.location.replace('/pt/');
+      }
+    }
+  } catch (_) {
+    // localStorage not available — skip language preference handling
+  }
+})();
+
+document.querySelectorAll('.lang-switch a').forEach((link) => {
+  link.addEventListener('click', () => {
+    const lang = link.getAttribute('lang') === 'pt-BR' ? 'pt' : 'en';
+    try {
+      window.localStorage.setItem(LANG_KEY, lang);
+    } catch (_) {
+      // ignore — switch still works, preference just won't persist
+    }
+  });
+});
+
 // ── SMOOTH SCROLL TRIGGERS ──
 const scrollToId = (id) => {
   const target = document.getElementById(id);

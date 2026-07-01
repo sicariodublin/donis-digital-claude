@@ -162,6 +162,13 @@ items while "Immediate" items remain open.
   upgrade available right now.
 - [ ] **Update `privacy.html` and `terms.html`** with the registered business
   address and company/sole trader number once formalised with Revenue/CRO.
+- [ ] **Fix stale Netlify Forms reference in `privacy.html`** — the policy
+  ("Contact form submissions" and "Server logs & analytics" sections) still
+  names Netlify Forms as the processor of contact-form submissions and
+  request logs. The site actually uses Formspree (see §1 Stack); Netlify was
+  fully replaced. `pt/privacy.html` was translated faithfully from the root
+  file and therefore carries the same inaccuracy — update both together,
+  swapping the Netlify references for Formspree.
 - [ ] **Add Plausible analytics** once the site is being shown to clients —
   privacy-respecting, no cookie required, ~€9/month. Update `privacy.html`
   accordingly when added.
