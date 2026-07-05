@@ -2,7 +2,8 @@
 
 Marketing site for FS Digital, a Dublin-based web development practice, at
 [fsteyerdigital.com](https://fsteyerdigital.com). Single-page main site plus
-three industry demos, two legal pages, and a Formspree-backed contact form.
+three industry demos, two legal pages, a Formspree-backed contact form, and a
+Portuguese (pt-BR) localised version of the site at `/pt/`.
 
 This document is the operator's manual: what exists, how it's deployed, and
 what's still on the to-do list.
@@ -33,19 +34,27 @@ trackers. The cookie banner exists only to record the user's awareness in
 
 ```
 /
-  donis-digital.html        Main marketing page (single-page site)
-  donis-digital.css         Main stylesheet
-  donis-digital.js          Smooth scroll, reveal-on-scroll, Formspree submit, cookie banner
+  donis-digital.html        Main marketing page (single-page site, EN)
+  donis-digital.css         Main stylesheet (shared by EN and PT)
+  donis-digital.js          Smooth scroll, reveal-on-scroll, Formspree submit,
+                            cookie banner, language-preference persistence
   index.html                Meta-refresh redirect to donis-digital.html
-  privacy.html              GDPR-aware privacy policy
-  terms.html                Terms & conditions
-  legal.css                 Shared stylesheet for privacy.html and terms.html
+  404.html                  Branded 404 page
+  privacy.html              GDPR-aware privacy policy (EN)
+  terms.html                Terms & conditions (EN)
+  legal.css                 Shared stylesheet for privacy.html and terms.html (EN + PT)
   robots.txt                Allows all, points at sitemap
-  sitemap.xml               Main page + legal pages + 3 demos
+  sitemap.xml               Main page + legal pages + 3 demos + PT equivalents
   Print_Transparent.svg     Logo (active — circular FS mark, cyan/purple gradient)
-  Logo.png                  Logo raster — unused, candidate for deletion
+  fs-digital-pt-br.md       PT-BR copy reference used to build /pt/
   README.md                 Short repo intro
   LICENSE                   Project licence
+
+  pt/
+    index.html              Portuguese (pt-BR) localised main page, loads the
+                            shared donis-digital.css/.js from root
+    privacy.html            Portuguese privacy policy (translation of root privacy.html)
+    terms.html              Portuguese terms & conditions (translation of root terms.html)
 
   demos/
     bella-roma/             Restaurant demo (Playfair Display + Cormorant Garamond)
@@ -56,17 +65,24 @@ trackers. The cookie banner exists only to record the user's awareness in
       index.html, style.css, script.js
 ```
 
-### Files to delete (decisions made)
-The following files are confirmed legacy and should be removed in the next push
-to slim the deploy and avoid confusion:
+### Language switching (EN ⇄ PT)
+- Nav on both `donis-digital.html` and `pt/index.html` has a `.lang-switch`
+  with `EN` → `/donis-digital.html` and `PT` → `/pt/`.
+- `donis-digital.js` (shared by both pages) saves the choice to
+  `localStorage['fs_lang']` (`'en'` or `'pt'`) whenever a switcher link is
+  clicked, and automatically sets it to `'pt'` whenever a `/pt/*` page loads.
+- On any non-`/pt/` page load, if `fs_lang` is `'pt'`, the script redirects to
+  `/pt/` via `location.replace`. Default (no saved value, or `'en'`) never
+  redirects — EN stays the default language for direct/first-time visitors.
+- `pt/privacy.html` and `pt/terms.html` don't load `donis-digital.js`, so they
+  carry a small inline `<script>` doing the same `fs_lang` save + switcher
+  click handling.
 
-- `Print_Transparent_1.svg` (~354 KB) — old logo iteration, unreferenced
-- `Print_Transparent_2.svg` — old logo iteration, unreferenced
-- `logo-options.html` — colour comparison page used during design, unreferenced
-- `netlify.toml` — legacy from abandoned Netlify Forms approach; Cloudflare is
-  the confirmed host, Netlify is off the table
-- `Logo.png` (87 KB) — raster logo, superseded by SVG; confirm unreferenced
-  before deleting
+### Legacy files — cleaned up
+`Print_Transparent_1.svg`, `Print_Transparent_2.svg`, `logo-options.html`,
+`netlify.toml`, and `Logo.png` were all removed from the repo. If
+`logo-options.html` reappears locally (untracked) it's stray local work, not a
+tracked file — safe to delete again without ceremony.
 
 ---
 
@@ -119,18 +135,29 @@ The old `sicariodublin/donis-digital` repo on GitHub should be archived
 - Open Graph + Twitter Card tags on main page; per-page meta descriptions and
   canonicals across the site.
 - Cloudflare Email Routing delivers `hello@fsteyerdigital.com` to the personal inbox.
-- Fictional businesses disclaimer added to the `#demos` section of the main page.
+- Fictional businesses disclaimer present in the main site's `#demos` section
+  *and* in each individual demo's own footer (`bella-roma`, `church`, `accountancy`).
+- Branded `404.html` live (logo, "Page not found", link home) instead of the
+  generic Cloudflare 404.
+- **Portuguese (pt-BR) site at `/pt/`** — full translation of the main page
+  (see `fs-digital-pt-br.md` for the copy reference), plus its own
+  `pt/privacy.html` and `pt/terms.html`. EN ⇄ PT language switcher in both
+  navs, with the choice persisted across visits (see "Language switching"
+  in §2) so returning visitors, back-button navigation, and legal-page
+  detours no longer bounce PT users onto the EN page.
 
 ### Known cosmetic placeholders
 - All demo "galleries" use emoji icons in gradient panels, not real photography.
   The Bella Roma gallery says so out loud at the bottom of the section.
+- Demo preview thumbnails on the main page's `#demos` section (EN and PT) are
+  `placehold.co` placeholder images, not real screenshots.
 - The "About" section on the main page describes the founder and stack; the logo
   uses a CSS transform/scale to fill its container. Replace if a better-fitted
   asset becomes available.
 - Service-card icons on the main page are emoji. Intentional for now; replace
   with a custom icon set if/when budget allows.
-- Demo footer "fictional businesses" disclaimer currently only appears on the
-  main site's `#demos` section — not inside each individual demo footer (see roadmap).
+- `pt/privacy.html` is a faithful translation of the root `privacy.html` and so
+  repeats its stale Netlify Forms reference (see roadmap).
 
 ---
 
@@ -141,18 +168,13 @@ items while "Immediate" items remain open.
 
 ### Immediate (next push — do these before showing the site to any client)
 
-- [ ] **Delete legacy files:** `Print_Transparent_1.svg`, `Print_Transparent_2.svg`,
-  `logo-options.html`, `netlify.toml`, `Logo.png` (confirm unused first).
 - [ ] **Merge Cloudflare PR #1** (`cloudflare/workers-autoconfig`) — if it only
   adds `wrangler.toml`, merging is safe and pins build config in the repo.
 - [ ] **Archive old repo** `sicariodublin/donis-digital` on GitHub to block
   accidental pushes.
-- [ ] **Add fictional businesses disclaimer to each demo footer** — one line per
-  demo, e.g. *"Bella Roma is a fictional business created for demonstration
-  purposes by FS Digital."* Add to the `<footer>` of each demo's `index.html`.
-- [ ] **Build a branded 404 page** (`404.html`) — the Worker currently serves a
-  generic Cloudflare 404, which looks unprofessional. Keep it simple: logo,
-  "Page not found", link back to the homepage.
+
+Done: legacy file cleanup, per-demo footer disclaimers, and the branded
+404 page all shipped in an earlier push (see "Live and working" in §4).
 
 ### Soon (within 2–3 weeks)
 
@@ -195,7 +217,6 @@ items while "Immediate" items remain open.
 - [ ] Audit demo CSS files for unused selectors — each is ~17–25 KB hand-written
   and likely has dead rules from iteration.
 - [ ] Add `loading="lazy"` to all `<img>` tags once real images are added.
-- [ ] Confirm `Logo.png` is truly unreferenced and delete it.
 
 ### Accessibility
 
@@ -280,3 +301,5 @@ Decisions that were open questions and are now closed.
 | Cloudflare orange-cloud proxying — leave on? | **Yes.** Free DDoS protection and caching. Only disable to diagnose TLS issues. |
 | Analytics? | **Plausible when ready.** No analytics until site is being actively shown to clients. |
 | Contact form solution? | **Formspree** (`xrevpnzj`). Resend free tier is used by Add & Compare. |
+| PT localisation — subdomain, `?lang=`, or path? | **Path: `/pt/`.** Cleaner for SEO (own canonical + hreflang) than a query param, simpler than a subdomain with no extra DNS/Worker config. |
+| How to remember EN vs PT across visits? | **`localStorage['fs_lang']`**, set on `/pt/*` page load or switcher click; non-PT pages redirect to `/pt/` only if it's explicitly `'pt'` — default (unset or `'en'`) always stays on EN. |
