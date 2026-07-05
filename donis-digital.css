@@ -422,6 +422,19 @@ h2 {
   color: var(--cyan);
 }
 
+.hosting-plans {
+  margin-top: 4rem;
+}
+
+.hosting-plans-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
 #packages { background: var(--bg); }
 
 .packages-grid {
