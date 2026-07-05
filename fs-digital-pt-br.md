@@ -1,4 +1,4 @@
-# FS Digital — Conteúdo em Português (pt-BR)
+# FS.Digital — Conteúdo em Português (pt-BR)
 
 Tradução e localização completa do site principal para o mercado brasileiro.
 Use este arquivo como referência para criar pt.html (ou /pt/index.html),
@@ -219,7 +219,7 @@ Mente de quem constrói.
 
 **Lead paragraph:**
 ```
-FS Digital é uma agência de desenvolvimento web sediada em Dublin, 
+FS.Digital é uma agência de desenvolvimento web sediada em Dublin, 
 Irlanda, com atendimento também para o Brasil. Ajudamos pequenos e 
 médios negócios a entrarem online com sistemas que realmente funcionam 
 para eles — não apenas um site bonito parado.
@@ -329,7 +329,7 @@ ajuda a gente te responder mais rápido.]
 ## FOOTER
 
 ```
-© 2025 FS Digital. Todos os direitos reservados.
+© 2025 FS.Digital. Todos os direitos reservados.
 
 Serviços | Trabalhos | Contato
 ```

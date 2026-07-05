@@ -158,9 +158,12 @@ one now committed to `main`. Reconcile or close that PR, keeping
 - Contact sections simplified to 4 items (WhatsApp, email, LinkedIn,
   location) on both EN and PT -- dropped the redundant self-referencing
   website link and the GitHub link (not relevant to prospective clients).
-- **Hosting & Maintenance Plans** section live on the EN site's services
-  section (Basic/Hosting+Maintenance/Ad-hoc, euro pricing) -- see roadmap
-  for the PT-side gap this created.
+- **Hosting & Maintenance Plans** section live on both sites' services
+  sections -- Basic/Hosting+Maintenance/Ad-hoc in euros on EN, Básico/
+  Hospedagem+Manutenção/Avulsa in R$ on PT.
+- Brand name and founder name consistent everywhere -- **FS.Digital** (with
+  the dot, no more bare "FS Digital") and **Fabio A. Steyer** across all
+  HTML pages and repo docs.
 - **Real demo screenshots** live in the `#demos` grid on both EN and PT --
   `demos/{bella-roma,church,accountancy}/preview.webp`, lazy-loaded with
   explicit `width`/`height` to avoid layout shift, subtle zoom on hover.
@@ -175,10 +178,6 @@ one now committed to `main`. Reconcile or close that PR, keeping
 ### Known issues
 - Business address and sole trader/company number not yet in legal pages --
   awaiting CRO registration.
-- **PT site has no Hosting & Maintenance Plans section** -- the EN site
-  gained one (see "Live and working" above) but the equivalent was never
-  added to `pt/index.html`, so the two sites are now inconsistent on this
-  point. R$ pricing for it already exists in §6 below.
 - `terms.html` / `pt/terms.html` still say "e.g. Netlify hosting" in the
   third-party-services clause -- a generic example about client sites, not
   a claim about FS.Digital's own stack, but worth a look if fully scrubbing
@@ -205,9 +204,6 @@ Tasks are ordered by priority.
   404 handling. Close the PR or manually merge, keeping
   `not_found_handling: "404-page"`.
 - [ ] **Archive old repo** `sicariodublin/donis-digital` on GitHub.
-- [ ] **Add Hosting & Maintenance Plans to PT site** -- EN now has this
-  section (see §4); add the R$ equivalent to `pt/index.html` using the
-  pricing already documented in §6 below.
 
 ### Soon (within 2-3 weeks)
 
@@ -386,3 +382,5 @@ Each form: 20 questions across 5 sections:
 | Website/GitHub links in contact section? | Dropped both. Website link was redundant (already on the site); GitHub isn't relevant to prospective clients. |
 | WhatsApp on the EN site? | Yes -- added as a contact-link (not a floating button, that stays PT-only). Real number: +353 87 066 4839. |
 | Legal-page and About-section body text alignment? | Justified (`text-align: justify` + `text-align-last: left`) for a cleaner block look. |
+| Bare "FS Digital" (no dot) anywhere in copy? | No. Scrubbed from every HTML page and repo doc -- always "FS.Digital". |
+| Hosting plans on PT site? | Added -- Básico R$80/mês, Hospedagem + Manutenção R$150/mês, Avulsa R$80/hora, matching EN structure and CSS. |

@@ -1,4 +1,4 @@
-# FS Digital (Static Site)
+# FS.Digital (Static Site)
 
 Plain HTML/CSS/JS landing page.
 
