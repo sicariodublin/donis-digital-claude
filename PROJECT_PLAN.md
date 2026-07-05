@@ -44,10 +44,11 @@ trackers. The cookie banner exists only to record the user's awareness in
   donis-digital.js          Smooth scroll, reveal-on-scroll, Formspree submit,
                             cookie banner, language-preference persistence
   index.html                Meta-refresh redirect to donis-digital.html
-  404.html                  Branded 404 page
+  404.html                  Branded 404 page (served via wrangler.jsonc, see below)
+  wrangler.jsonc            Worker config — assets directory + not_found_handling
   privacy.html              GDPR-aware privacy policy (EN)
   terms.html                Terms & conditions (EN)
-  legal.css                 Shared stylesheet for privacy.html and terms.html
+  legal.css                 Shared stylesheet for privacy.html and terms.html (EN + PT)
   robots.txt                Allows all, points at sitemap
   sitemap.xml               Main page + legal pages + 3 demos + PT equivalents
   Print_Transparent.svg     Logo (active — circular FS mark, cyan/purple gradient)
@@ -56,17 +57,18 @@ trackers. The cookie banner exists only to record the user's awareness in
   LICENSE                   Project licence
 
   pt/
-    index.html              Portuguese (pt-BR) localised main page
-    privacy.html            Portuguese privacy policy
-    terms.html              Portuguese terms & conditions
+    index.html              Portuguese (pt-BR) localised main page, loads the
+                            shared donis-digital.css/.js from root
+    privacy.html            Portuguese privacy policy (translation of root privacy.html)
+    terms.html              Portuguese terms & conditions (translation of root terms.html)
 
   demos/
     bella-roma/             Restaurant demo (Playfair Display + Cormorant Garamond)
-      index.html, style.css, script.js
+      index.html, style.css, script.js, preview.webp
     church/                 St. Patrick's Community Church demo (EB Garamond + Cinzel)
-      index.html, style.css, script.js
+      index.html, style.css, script.js, preview.webp
     accountancy/            Clarke & Associates demo (Fraunces + Inter)
-      index.html, style.css, script.js
+      index.html, style.css, script.js, preview.webp
 ```
 
 ### Language switching (EN <-> PT)
@@ -109,6 +111,16 @@ DNS in Cloudflare:
 The old `sicariodublin/donis-digital` repo on GitHub should be archived
 (Settings -> Danger Zone -> Archive) to prevent accidental pushes there.
 
+### Custom 404 handling
+Workers with static assets do **not** auto-serve `404.html` the way Pages
+does — it must be opted into explicitly. `wrangler.jsonc` in the repo root
+sets `assets.not_found_handling: "404-page"`, which tells the Worker to
+serve `404.html` (with a real `404` status) for any unmatched path. Note:
+Cloudflare's bot-authored PR #2 (`cloudflare/workers-autoconfig`) also adds
+a `wrangler.jsonc` without this setting — it will likely conflict with the
+one now committed to `main`. Reconcile or close that PR, keeping
+`not_found_handling: "404-page"`.
+
 ### Verifying a deploy
 1. Push to `main`.
 2. **Workers & Pages -> donis-digital-claude -> Deployments** -- watch the new deployment go green.
@@ -135,27 +147,49 @@ The old `sicariodublin/donis-digital` repo on GitHub should be archived
 - Cloudflare Email Routing delivers `hello@fsteyerdigital.com` to personal inbox.
 - Fictional businesses disclaimer in main site `#demos` section AND in each
   individual demo footer.
-- Branded `404.html` live (logo, "Page not found", link home).
+- Branded `404.html` live and actually served by the Worker for unmatched
+  paths (`wrangler.jsonc` -> `assets.not_found_handling: "404-page"`).
 - **Portuguese (pt-BR) site at `/pt/`** -- full translation with own
   `pt/privacy.html` and `pt/terms.html`. EN <-> PT language switcher in both
   navs, choice persisted via `localStorage`. Demo links open in new tab.
-- **WhatsApp floating button** on `/pt/` -- phone number placeholder still needs
-  replacing with real WhatsApp number (see roadmap).
+- **WhatsApp** -- real number (`+353 87 066 4839`) live as a contact-link on
+  both EN and PT contact sections, plus the floating button on `/pt/`.
+  Pre-filled message text correct in both languages.
+- Contact sections simplified to 4 items (WhatsApp, email, LinkedIn,
+  location) on both EN and PT -- dropped the redundant self-referencing
+  website link and the GitHub link (not relevant to prospective clients).
+- **Hosting & Maintenance Plans** section live on the EN site's services
+  section (Basic/Hosting+Maintenance/Ad-hoc, euro pricing) -- see roadmap
+  for the PT-side gap this created.
+- **Real demo screenshots** live in the `#demos` grid on both EN and PT --
+  `demos/{bella-roma,church,accountancy}/preview.webp`, lazy-loaded with
+  explicit `width`/`height` to avoid layout shift, subtle zoom on hover.
+- Contact form processor correctly described as **Formspree** (not Netlify)
+  in both `privacy.html` and `pt/privacy.html`; hosting correctly described
+  as Cloudflare.
+- Legal-page body copy (`privacy.html`, `terms.html` and PT equivalents) and
+  the main site's About-section paragraphs are justified
+  (`text-align: justify` + `text-align-last: left`) for a cleaner block look.
 - `hello@fsteyerdigital.com` confirmed working -- forwards to `fabiosteyer@gmail.com`.
 
 ### Known issues
-- `privacy.html` (EN and PT) still references Netlify Forms as the contact form
-  processor. The site uses Formspree. Both files need updating together.
 - Business address and sole trader/company number not yet in legal pages --
   awaiting CRO registration.
-- Hosting & maintenance plan section exists in PT site but not in EN site.
-  Should be added to the EN version for consistency.
+- **PT site has no Hosting & Maintenance Plans section** -- the EN site
+  gained one (see "Live and working" above) but the equivalent was never
+  added to `pt/index.html`, so the two sites are now inconsistent on this
+  point. R$ pricing for it already exists in §6 below.
+- `terms.html` / `pt/terms.html` still say "e.g. Netlify hosting" in the
+  third-party-services clause -- a generic example about client sites, not
+  a claim about FS.Digital's own stack, but worth a look if fully scrubbing
+  Netlify mentions from the legal pages.
+- Cloudflare PR #2 (bot-authored `wrangler.jsonc`) will likely conflict with
+  the `wrangler.jsonc` now committed directly to `main` for 404 handling --
+  needs manual reconciliation in GitHub, not code.
 
 ### Known cosmetic placeholders
 - All demo galleries use emoji icons in gradient panels, not real photography.
 - Service-card icons on the main page are emoji. Intentional for now.
-- Demo preview cards in the demos-grid still use placeholder images -- need
-  real screenshots of each demo.
 - Logo in About section uses CSS scale transform.
 
 ---
@@ -166,23 +200,17 @@ Tasks are ordered by priority.
 
 ### Immediate (next push)
 
-- [ ] **Merge Cloudflare PR #1** (`cloudflare/workers-autoconfig`) -- if it only
-  adds `wrangler.toml`, merging is safe and pins build config in the repo.
+- [ ] **Reconcile Cloudflare PR #2** (`cloudflare/workers-autoconfig`) --
+  now conflicts with the `wrangler.jsonc` committed to `main` for custom
+  404 handling. Close the PR or manually merge, keeping
+  `not_found_handling: "404-page"`.
 - [ ] **Archive old repo** `sicariodublin/donis-digital` on GitHub.
-- [ ] **Fix Netlify Forms reference in privacy.html** -- update both
-  `privacy.html` and `pt/privacy.html` to reference Formspree instead of
-  Netlify Forms as the contact form data processor.
-- [ ] **Add hosting & maintenance plans to EN site** -- the PT version has a
-  hosting plans section (R$ pricing); add the equivalent (euro pricing) to
-  the services section of `donis-digital.html` for consistency.
-- [ ] **Replace WhatsApp placeholder number in /pt/** -- the floating WhatsApp
-  button in `pt/index.html` uses `353XXXXXXXXX`. Replace with real number.
+- [ ] **Add Hosting & Maintenance Plans to PT site** -- EN now has this
+  section (see §4); add the R$ equivalent to `pt/index.html` using the
+  pricing already documented in §6 below.
 
 ### Soon (within 2-3 weeks)
 
-- [ ] **Replace emoji demo previews with real screenshots** -- take browser
-  screenshots of each demo at ~1200px wide, crop to 16:9, save as WebP.
-  Biggest single visual upgrade available. Apply to both EN and PT demo grids.
 - [ ] **Update privacy.html and terms.html** with registered business address
   and sole trader number once CRO registration is complete.
 - [ ] **Add Plausible analytics** once site is being actively shown to clients.
@@ -354,3 +382,7 @@ Each form: 20 questions across 5 sections:
 | PT pricing? | R$ market-appropriate rates, not direct euro conversion. |
 | Document format? | Google Docs-compatible .docx with columnWidths fix for table rendering. |
 | Client intake process? | Google Forms (2 forms: EN + PT-BR) -> Google Sheets. |
+| Custom 404 on a static-assets Worker? | `wrangler.jsonc` with `assets.not_found_handling: "404-page"`. Pages-style auto-detection doesn't apply to Workers. |
+| Website/GitHub links in contact section? | Dropped both. Website link was redundant (already on the site); GitHub isn't relevant to prospective clients. |
+| WhatsApp on the EN site? | Yes -- added as a contact-link (not a floating button, that stays PT-only). Real number: +353 87 066 4839. |
+| Legal-page and About-section body text alignment? | Justified (`text-align: justify` + `text-align-last: left`) for a cleaner block look. |
