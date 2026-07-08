@@ -39,11 +39,12 @@ trackers. The cookie banner exists only to record the user's awareness in
 
 ```
 /
-  donis-digital.html        Main marketing page (single-page site, EN)
+  index.html                Main marketing page (single-page site, EN)
   donis-digital.css         Main stylesheet (shared by EN and PT)
   donis-digital.js          Smooth scroll, reveal-on-scroll, Formspree submit,
                             cookie banner, language-preference persistence
-  index.html                Meta-refresh redirect to donis-digital.html
+  donis-digital.html        Meta-refresh redirect to / (noindex, kept for old
+                            inbound links to the legacy /donis-digital.html URL)
   404.html                  Branded 404 page (served via wrangler.jsonc, see below)
   wrangler.jsonc            Worker config — assets directory + not_found_handling
   privacy.html              GDPR-aware privacy policy (EN)
@@ -72,8 +73,8 @@ trackers. The cookie banner exists only to record the user's awareness in
 ```
 
 ### Language switching (EN <-> PT)
-- Nav on both `donis-digital.html` and `pt/index.html` has a `.lang-switch`
-  with `EN` -> `/donis-digital.html` and `PT` -> `/pt/`.
+- Nav on both `index.html` and `pt/index.html` has a `.lang-switch`
+  with `EN` -> `/` and `PT` -> `/pt/`.
 - `donis-digital.js` saves the choice to `localStorage['fs_lang']` (`'en'` or
   `'pt'`) whenever a switcher link is clicked, and automatically sets it to
   `'pt'` whenever a `/pt/*` page loads.
@@ -348,7 +349,7 @@ Each form: 20 questions across 5 sections:
 - **Check form submissions:** Formspree dashboard or `fabiosteyer@gmail.com`.
 - **Check questionnaire responses:** Google Sheets linked to each Form.
 - **Add a new page:** create `.html`, add to `sitemap.xml`, link from footer or nav.
-- **Bump cache-busting strings:** increment `?v=` on CSS/JS in `donis-digital.html`.
+- **Bump cache-busting strings:** increment `?v=` on CSS/JS in `index.html`.
 
 ### Things not to touch without a reason
 - MX and TXT records in Cloudflare DNS -- they keep email working.
@@ -384,3 +385,4 @@ Each form: 20 questions across 5 sections:
 | Legal-page and About-section body text alignment? | Justified (`text-align: justify` + `text-align-last: left`) for a cleaner block look. |
 | Bare "FS Digital" (no dot) anywhere in copy? | No. Scrubbed from every HTML page and repo doc -- always "FS.Digital". |
 | Hosting plans on PT site? | Added -- Básico R$80/mês, Hospedagem + Manutenção R$150/mês, Avulsa R$80/hora, matching EN structure and CSS. |
+| EN main page URL: `/donis-digital.html` or `/`? | Swapped to `/` (2026-07-08). The site previously served real content from `/donis-digital.html` with `/` as a meta-refresh stub -- this caused a canonical loop between apex, www, and `/donis-digital.html`, and left `/donis-digital.html` visible in the address bar after every visit. Content now lives in `index.html` at the root; `donis-digital.html` is the noindex redirect stub, kept only so old inbound links/bookmarks still resolve. |

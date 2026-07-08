@@ -4,14 +4,14 @@ Plain HTML/CSS/JS landing page.
 
 ## Files
 
-- `donis-digital.html` — main page
+- `index.html` — main page
 - `donis-digital.css` — styles
 - `donis-digital.js` — interactions (scroll, reveal, nav active state, contact form UI)
-- `index.html` — GitHub Pages entry point (redirects to `donis-digital.html`)
+- `donis-digital.html` — noindex redirect stub (redirects to `/`, kept for old inbound links)
 
 ## Run locally
 
-Open `donis-digital.html` in your browser.
+Open `index.html` in your browser.
 
 ## Deploy (GitHub Pages)
 
