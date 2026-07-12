@@ -2,7 +2,7 @@
 
 Marketing site for FS.Digital, a Dublin-based web development practice, at
 [fsteyerdigital.com](https://fsteyerdigital.com). Single-page main site plus
-three industry demos, two legal pages, a Formspree-backed contact form, and a
+four industry demos, two legal pages, a Formspree-backed contact form, and a
 Portuguese (pt-BR) localised version of the site at `/pt/`.
 
 This document is the operator's manual: what exists, how it's deployed, and
@@ -70,6 +70,11 @@ trackers. The cookie banner exists only to record the user's awareness in
       index.html, style.css, script.js, preview.webp
     accountancy/            Clarke & Associates demo (Fraunces + Inter)
       index.html, style.css, script.js, preview.webp
+    gyms/                   Evolution Gym -- real client project (Bebas Neue +
+                            Barlow Condensed + Inter), shown as the 4th demo
+                            card; see demos/gyms/EVOLUTION_GYM_PROJECT_PLAN.md
+                            index.html, style.min.css, script.min.js,
+                            preview.webp, plus client photos/logo
 ```
 
 ### Language switching (EN <-> PT)
@@ -134,10 +139,12 @@ one now committed to `main`. Reconcile or close that PR, keeping
 
 ### Live and working
 - Main site, all sections render: hero, services, packages, process, demos, about, contact, footer.
-- Three demos behind real URLs:
+- Four demos behind real URLs:
   - `/demos/bella-roma/` -- restaurant: online menu, table reservations, gallery, hours, location
   - `/demos/church/` -- St. Patrick's: mass times, events calendar, news, donations, contact
   - `/demos/accountancy/` -- Clarke & Associates: services, team, client portal, testimonials, hours
+  - `/demos/gyms/` -- Evolution Gym: real client project (3 units, membership
+    plans, WhatsApp-first sign-up), shown in the same grid as the other three
 - Formspree contact form: POSTs via fetch, shows styled success/error panel,
   resets on success. Delivers to `fabiosteyer@gmail.com`.
 - Legal pages (`privacy.html`, `terms.html`) linked from footer (EN).
@@ -166,7 +173,7 @@ one now committed to `main`. Reconcile or close that PR, keeping
   the dot, no more bare "FS Digital") and **Fabio A. Steyer** across all
   HTML pages and repo docs.
 - **Real demo screenshots** live in the `#demos` grid on both EN and PT --
-  `demos/{bella-roma,church,accountancy}/preview.webp`, lazy-loaded with
+  `demos/{bella-roma,church,accountancy,gyms}/preview.webp`, lazy-loaded with
   explicit `width`/`height` to avoid layout shift, subtle zoom on hover.
 - Contact form processor correctly described as **Formspree** (not Netlify)
   in both `privacy.html` and `pt/privacy.html`; hosting correctly described
